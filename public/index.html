@@ -898,7 +898,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 #pageIuran{position:static}
 #pageIuran.active,#pageIuran.in-tab-f,#pageIuran.in-tab-b,#pageIuran.in-push,#pageIuran.in-pop{position:relative}
 #pageIuran.leaving{position:absolute}
-/* sub-halaman yang keluar: sejajar persis dengan posisi aslinya (padding atas halaman = 18px) */
+/* sub-halaman yang keluar: sejajar persis dengan posisi aslinya (padding atas halaman = 16px) */
 .sub.sub-leaving{left:14px;right:14px}
 /* delay bawaan kaskade anak-halaman tidak boleh menunda animasi geser sub-halaman */
 .sub.in-push,.sub.out-push,.sub.in-pop,.sub.out-pop,.sub.in-tab-f,.sub.in-tab-b,.sub.out-tab-f,.sub.out-tab-b{animation-delay:0s!important}
@@ -934,6 +934,38 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 /* animasi masuk navbar: tetap di tengah, naik dari bawah */
 @keyframes navIn{from{transform:translateY(calc(100% + 40px));opacity:0}to{transform:none;opacity:1}}
 @media(max-width:380px){.nav-item{font-size:9.5px}.bottom-nav{width:calc(100% - 20px)}}
+
+/* ===== POPUP AKSI: muncul & hilang halus (sebelumnya hilang mendadak) ===== */
+.act-pop{display:flex;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .22s ease,visibility 0s linear .22s}
+.act-pop.show{visibility:visible;opacity:1;pointer-events:auto;animation:none;transition:opacity .18s ease,visibility 0s}
+.act-pop:not(.show) .act-card{transform:scale(.94);transition:transform .22s var(--spring)}
+/* ===== Sub-halaman geser: latar menutup sampai tepi (tidak ada celah 14px yang menampakkan halaman lama) ===== */
+.sub.in-push,.sub.out-pop{box-shadow:0 0 0 14px var(--bg),-14px 0 34px rgba(30,6,12,.16)}
+
+/* ===== ANIMASI BUKA DETAIL IURAN: tidak lagi "hilang lalu muncul lagi" =====
+   Setelah kelas in-push dilepas, animasi kaskade ".page.active>*" (itemIn) menyala ulang pada sub-halaman
+   sehingga detail sempat transparan lalu fade-in kedua kali. Sub-halaman diatur hanya oleh push/pop. */
+.page.active>.sub{animation:none}
+.page.active>.sub.in-push{animation:pushIn .55s var(--spring) both}
+.page.active>.sub.out-push{animation:pushOut .55s var(--spring) both}
+.page.active>.sub.in-pop{animation:popIn .55s var(--spring) both}
+.page.active>.sub.out-pop{animation:popOut .55s var(--spring) both}
+
+/* ===== NAMA TIDAK KEPOTONG (konsisten di semua kartu) ===== */
+.keb-list,.mhs-list,.transaction-list{grid-template-columns:minmax(0,1fr)}
+.keb-card,.mhs-item,.trx-item,.card,.income-controls{min-width:0;max-width:100%}
+.keb-title,.mhs-name,.trx-title,.trx-sub,.bulk-name,.bulk-row .nm{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;line-height:1.3}
+.keb-head>div:nth-child(2),.mhs-id,.trx-body,.bulk-student>span:not(.bulk-check){min-width:0}
+.mhs-top .pill,.mhs-top .mhs-avatar,.keb-ico,.keb-chev{flex:none}
+.mhs-top{align-items:flex-start}
+.mhs-top .pill{margin-top:2px}
+
+/* ===== SEARCH BAR STICKY ===== */
+.income-controls{position:sticky;top:calc(var(--hh,100px) + 8px);z-index:40;background:var(--surface);box-shadow:0 -8px 0 0 var(--surface),var(--sh-soft);transition:box-shadow .25s ease}
+.income-controls.stuck{box-shadow:0 -8px 0 0 var(--surface),0 12px 22px -10px rgba(30,6,12,.32)}
+.sticky-search{position:sticky;top:var(--hh,100px);z-index:40;margin:0 -18px 10px;padding:10px 18px 2px;background:var(--surface);transition:box-shadow .25s ease}
+.sticky-search.stuck{box-shadow:0 12px 20px -12px rgba(30,6,12,.32)}
+[data-theme="dark"] .income-controls.stuck,[data-theme="dark"] .sticky-search.stuck{box-shadow:0 -8px 0 0 var(--surface),0 12px 22px -10px rgba(0,0,0,.7)}
 </style>
 </head>
 <body>
@@ -1052,12 +1084,14 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
     <div class="card">
       <div class="card-title">Semua Transaksi</div>
       <div class="card-subtitle">Pemasukan, pengeluaran, dan perpindahan dana.</div>
+      <div class="sticky-search">
       <div class="search-box" style="margin-bottom:10px"><input type="text" id="rwSearch" placeholder="Cari nama, keterangan, kebutuhan…" oninput="renderRiwayat()"></div>
-      <div class="status-filters" style="margin-bottom:14px">
+      <div class="status-filters" style="margin-bottom:4px">
         <button class="filter-chip active" data-rw="semua" onclick="setRw('semua')">Semua</button>
         <button class="filter-chip" data-rw="in" onclick="setRw('in')">Pemasukan</button>
         <button class="filter-chip" data-rw="out" onclick="setRw('out')">Pengeluaran</button>
         <button class="filter-chip" data-rw="move" onclick="setRw('move')">Pindah dana</button>
+      </div>
       </div>
       <button type="button" class="btn btn-secondary" style="margin-bottom:14px" onclick="exportRiwayatCsv()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Unduh hasil filter (CSV)</button>
       <div id="allTrx" class="transaction-list" data-anim></div>
@@ -1141,7 +1175,7 @@ function swapEls(out, inn, mode, kind, sy) {
   ['in-tab-f', 'in-tab-b', 'in-push', 'in-pop'].forEach(c => out.classList.remove(c));
   ['out-tab-f', 'out-tab-b', 'out-push', 'out-pop', 'leaving', 'sub-leaving'].forEach(c => inn.classList.remove(c)); inn.style.top = '';
   out.classList.add(sub ? 'sub-leaving' : 'leaving', 'out-' + mode);
-  out.style.top = (sub ? 18 - sy : hh - sy) + 'px';
+  out.style.top = (sub ? 16 - sy : hh - sy) + 'px';
   if (sub) out.style.display = 'block';
   void inn.offsetWidth; inn.classList.add('in-' + mode);
   out._st = setTimeout(() => {
@@ -1412,12 +1446,18 @@ function initApp() {
   setText('roleHint', isKetua() ? 'Kamu bisa membuat iuran, mengelola mahasiswa, mencatat dana masuk/keluar, memindahkan dana, serta mengoreksi atau membatalkan transaksi.' : 'Kamu bisa mencatat pembayaran dan pengeluaran. Perubahan lain hanya bisa dilakukan Ketua Angkatan.');
   greetReady = false; paintGreet(false);
   buildModals(); refresh(false);
-  requestAnimationFrame(() => moveNav(document.querySelector('.nav-item.active')));
+  requestAnimationFrame(() => moveNav(document.querySelector('.nav-item.active'), true));
   startSync();
 }
 
 /****** NAV & SYNC ******/
-function moveNav(b) { const i = $('navIndicator'); if (i && b) { i.style.width = b.offsetWidth + 'px'; i.style.transform = `translateX(${b.offsetLeft}px)`; } }
+function moveNav(b, instant) {
+  const i = $('navIndicator'); if (!i || !b || !b.offsetWidth) return;
+  const snap = instant || !parseFloat(i.style.width);
+  if (snap) i.style.transition = 'none';
+  i.style.width = b.offsetWidth + 'px'; i.style.transform = `translateX(${b.offsetLeft}px)`;
+  if (snap) { void i.offsetWidth; i.style.transition = ''; }
+}
 function goTo(p, keep, mode) {
   const from = activePage;
   if (from === p) {
@@ -1913,7 +1953,19 @@ function toggleTheme() {
   try { localStorage.setItem('kasangk_theme', dark ? 'dark' : 'light'); } catch (e) {}
   syncTheme();
 }
-window.addEventListener('resize', () => { const b = document.querySelector('.nav-item.active'); if ($('appPage').style.display !== 'none') moveNav(b); });
+window.addEventListener('resize', () => { const b = document.querySelector('.nav-item.active'); if ($('appPage').style.display !== 'none') moveNav(b, true); });
+
+/* Tinggi header untuk posisi sticky (search bar) + penanda "menempel" */
+(function () {
+  const h = document.getElementById('appHeader'), root = document.documentElement;
+  const setHH = () => { if (h && h.offsetHeight) root.style.setProperty('--hh', h.offsetHeight + 'px'); };
+  if (window.ResizeObserver && h) new ResizeObserver(setHH).observe(h);
+  window.addEventListener('resize', setHH); setHH();
+  let tick = false;
+  const upd = () => { tick = false; const hh = parseFloat(root.style.getPropertyValue('--hh')) || 0;
+    document.querySelectorAll('.income-controls,.sticky-search').forEach(e => { if (!e.offsetParent) return; e.classList.toggle('stuck', e.getBoundingClientRect().top <= hh + 9 && window.scrollY > 8); }); };
+  window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+})();
 // Setiap membuka halaman ini wajib login dulu: sesi tidak disimpan di perangkat.
 // Username & password diisi oleh password manager browser (Google), pengguna tinggal menekan "Masuk".
 (function boot() { try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} })();
