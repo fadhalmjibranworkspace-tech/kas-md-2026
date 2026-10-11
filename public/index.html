@@ -6,6 +6,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#8a0b20">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="application-name" content="SAKU MD 2026">
+<meta name="apple-mobile-web-app-title" content="SAKU MD26">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Aplikasi kas angkatan Manajemen Dakwah 2026.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Saku Angkatan MD'26">
+<meta property="og:description" content="Aplikasi kas angkatan Manajemen Dakwah 2026.">
+<meta property="og:image" content="https://saku-md2026.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <title>Saku Angkatan MD'26</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -863,13 +878,25 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 .keb-card .pill.bad{box-shadow:inset 0 0 0 1px rgba(200,16,46,.22)}
 @media(prefers-reduced-motion:reduce){.keb-card .bar>span::after,.greet-ico,.dashboard-hero::before,.login-wrap::before,.login-wrap::after{animation:none!important}}
 .page.in-push,.sub.in-push{position:relative}
+.login-logo{width:84px;height:84px;padding:0;overflow:hidden;border-radius:24px;background:none;box-shadow:0 12px 28px rgba(120,0,10,.40)}
+.login-logo img{display:block;width:100%;height:100%}
+.login-wrap{background-image:url(/logo-ghost.png),var(--hero);background-repeat:no-repeat;background-position:calc(100% + 110px) calc(100% + 70px),0 0;background-size:440px auto,auto}
+
+/* ===== LOGO SAKU MD 2026 ===== */
+.brand-stamp img{display:block;height:24px;width:auto}
+.dashboard-hero,.pub-hero,.settings-profile{background-image:url(/logo-ghost.png),var(--hero);background-repeat:no-repeat;background-position:right -14px bottom -26px,0 0;background-size:128px auto,auto}
+.act-spin{width:52px;height:52px;border-width:3px}
+.act-icon .act-logo{width:22px;height:27px;background:var(--brand);-webkit-mask:url(/logo-mark.png) center/contain no-repeat;mask:url(/logo-mark.png) center/contain no-repeat}
+.act-pop[data-state="loading"] .act-logo{display:block}
+.about-brand{display:flex;justify-content:center;padding:26px 0 8px}
+.about-logo{display:block;width:64px;height:81px;background:var(--brand);opacity:.85;-webkit-mask:url(/logo-full.png) center/contain no-repeat;mask:url(/logo-full.png) center/contain no-repeat}
 </style>
 </head>
 <body>
 <!-- LOGIN -->
 <div id="loginPage" class="login-wrap">
   <div class="login-card">
-    <div class="login-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 10 12 4l9.5 6"/><path d="M5 21V10M9.5 21V10M14.5 21V10M19 21V10"/><path d="M3 21h18"/></svg></div>
+    <div class="login-logo" aria-hidden="true"><img src="/icon-192.png" alt="" width="84" height="84"></div>
     <div class="login-title">Saku Angkatan MD'26</div>
     <div class="login-sub">Manajemen Dakwah • Kelas A, B &amp; C</div>
     <form id="loginForm" method="post" action="#" autocomplete="on" onsubmit="doLogin(event)">
@@ -887,7 +914,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 <div id="appPage" style="display:none;">
   <header class="app-header" id="appHeader">
     <div class="header-top">
-      <div class="brand-stamp" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 10 12 4l9.5 6"/><path d="M5 21V10M9.5 21V10M14.5 21V10M19 21V10"/><path d="M3 21h18"/></svg></div>
+      <div class="brand-stamp" aria-hidden="true"><img src="/logo-mark.png" alt=""></div>
       <div class="header-text">
         <div class="header-title" id="pageTitle">Dashboard</div>
         <div class="header-sub">Saku Angkatan MD'26</div>
@@ -1009,6 +1036,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
       </div>
       <div class="card-subtitle" id="roleHint"></div>
     </div>
+    <div class="about-brand" aria-hidden="true"><span class="about-logo"></span></div>
   </div>
 
   <nav class="bottom-nav">
@@ -1023,7 +1051,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 
 <div id="modalHost"></div>
 <div class="act-pop" id="actPop" data-state="loading" role="alertdialog" aria-live="assertive" onclick="if(event.target===this&&this.dataset.state!=='loading')actHide()">
-  <div class="act-card"><div class="act-icon"><span class="act-spin"></span><svg class="act-ok" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><svg class="act-bad" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
+  <div class="act-card"><div class="act-icon"><span class="act-spin"></span><span class="act-logo" aria-hidden="true"></span><svg class="act-ok" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><svg class="act-bad" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></div>
   <div class="act-title" id="actTitle">Memproses…</div><div class="act-msg" id="actMsg"></div>
   <button type="button" class="btn btn-primary act-btn" id="actBtn" onclick="actHide()" style="display:none">Tutup</button></div>
 </div>
