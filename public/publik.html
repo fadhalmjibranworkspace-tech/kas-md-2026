@@ -737,9 +737,95 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 .act-pop[data-state="loading"] .act-logo{display:block}
 .about-brand{display:flex;justify-content:center;padding:26px 0 8px}
 .about-logo{display:block;width:64px;height:81px;background:var(--brand);opacity:.85;-webkit-mask:url(/logo-full.png) center/contain no-repeat;mask:url(/logo-full.png) center/contain no-repeat}
+
+/* ---------- Tombol kembali ke halaman utama ---------- */
+a.hdr-btn{text-decoration:none}
+.hdr-main{margin-left:8px}
+.hdr-theme{margin-left:8px}
+.sidebar,.hdr-act{display:none}
+
+/* =====================================================================
+   TAMPILAN DESKTOP (>= 1024px): sidebar + header + konten dua kolom
+   ===================================================================== */
+@media(min-width:1024px){
+:root{--sbw:272px}
+body{padding-left:var(--sbw)}
+
+/* Sidebar */
+.sidebar{position:fixed;z-index:70;left:0;top:0;bottom:0;width:var(--sbw);display:flex;flex-direction:column;padding:22px 14px 14px;color:#fff;background:linear-gradient(190deg,#a60e27 0%,#800a1d 52%,#4f0615 100%);box-shadow:8px 0 30px -12px rgba(60,6,16,.45);overflow:hidden}
+[data-theme="dark"] .sidebar{background:linear-gradient(190deg,#4d0714 0%,#33040d 55%,#1f0207 100%);box-shadow:8px 0 30px -12px rgba(0,0,0,.7)}
+.sidebar::before{content:'';position:absolute;width:360px;height:360px;left:-170px;top:-200px;border-radius:50%;border:1px solid rgba(255,255,255,.10);pointer-events:none}
+.sidebar::after{content:'';position:absolute;width:260px;height:260px;right:-150px;bottom:150px;border-radius:50%;border:1px solid rgba(255,255,255,.07);pointer-events:none}
+.sb-brand{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:2px 8px 20px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.12)}
+.sb-logo{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.sb-logo img{display:block;height:25px;width:auto}
+.sb-name{font-size:16.5px;font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.sb-tag{margin-top:2px;font-size:11px;font-weight:600;opacity:.7}
+.sb-scroll{position:relative;z-index:1;flex:1;min-height:0;overflow-y:auto;padding-right:2px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
+.sb-label{margin:20px 12px 8px;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.sb-scroll>.sb-label:first-child{margin-top:12px}
+.sb-item{position:relative;width:100%;display:flex;align-items:center;gap:12px;margin-bottom:2px;padding:10px 12px;border:0;border-radius:12px;background:none;color:rgba(255,255,255,.82);font-size:13.5px;font-weight:700;text-align:left;text-decoration:none;cursor:pointer;transition:background-color .18s,color .18s}
+.sb-item svg{flex:none;width:18px;height:18px}
+.sb-item span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-item:hover{background:rgba(255,255,255,.10);color:#fff}
+.sb-item.active{background:rgba(255,255,255,.18);color:#fff;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.18)}
+.sb-item.active::before{content:'';position:absolute;left:-14px;top:9px;bottom:9px;width:4px;border-radius:0 4px 4px 0;background:#fff}
+.sb-item.arsip{opacity:.6}
+.sb-item:focus-visible,.sb-cta:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.sb-note{position:relative;z-index:1;margin-top:12px;padding:15px;border-radius:16px;background:rgba(0,0,0,.20);border:1px solid rgba(255,255,255,.10);font-size:11.5px;line-height:1.55;font-weight:500;color:rgba(255,255,255,.78)}
+.sb-note strong{display:block;margin-bottom:4px;font-size:12.5px;font-weight:800;color:#fff}
+.sb-cta{display:block;margin-top:12px;padding:10px 12px;border-radius:11px;background:#fff;color:#8a0b20;font-size:12.5px;font-weight:800;text-align:center;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.sb-cta:hover{transform:translateY(-1px);box-shadow:0 8px 18px -8px rgba(0,0,0,.5)}
+
+/* Header (bar atas) */
+.app-header,[data-theme="dark"] .app-header{display:flex;align-items:center;gap:14px;padding:16px 40px;color:var(--ink);background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:1px solid var(--line);box-shadow:none;overflow:visible}
+.app-header.scrolled,[data-theme="dark"] .app-header.scrolled{box-shadow:0 10px 26px -16px rgba(40,8,16,.30)}
+.header-top{display:contents}
+.brand-stamp{display:none}
+.header-text{order:1;flex:1;min-width:0}
+.header-title{font-size:22px;letter-spacing:-.035em;color:var(--ink)}
+.header-sub{margin-top:2px;font-size:12.5px;font-weight:500;color:var(--ink-3);opacity:1;letter-spacing:0}
+.header-meta{order:2;margin:0;gap:12px;flex-wrap:nowrap}
+.connection-indicator{background:var(--surface-3);color:var(--ink-2);font-size:11px}
+.sync-note{font-size:11px;font-weight:600;color:var(--ink-3);opacity:1;white-space:nowrap}
+.hdr-main{display:none}
+.hdr-act{order:3;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:12px;background:var(--brand);color:#fff;font-size:13px;font-weight:800;text-decoration:none;box-shadow:0 8px 18px -8px rgba(200,16,46,.7);transition:transform .2s,background-color .2s}
+.hdr-act:hover{background:var(--brand-hi);transform:translateY(-1px)}
+.hdr-act svg{width:16px;height:16px}
+.hdr-theme{order:4;margin-left:0;color:var(--ink-2);background:var(--surface-3);border-color:var(--line)}
+.hdr-theme:hover{background:var(--brand-soft);color:var(--brand-ink)}
+
+/* Konten */
+.page{max-width:1280px;padding:30px 40px 56px}
+.keb-chips{display:none}
+.pub-grid{display:grid;grid-template-columns:380px minmax(0,1fr);gap:28px;align-items:start}
+.pub-side{position:sticky;top:104px}
+.pub-side .pub-hero{padding:26px;margin-bottom:16px}
+.pub-side .ph-amt{font-size:34px}
+.pub-side .ring{width:96px;height:96px}
+.pub-side .kelas-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+.pub-main{min-width:0}
+.pub-main .income-controls{flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px 16px;padding:14px 16px;margin-bottom:10px}
+.pub-main .income-controls .search-box{flex:1 1 280px;margin:0}
+.pub-main .income-controls .status-filters{margin:0;flex:0 1 auto}
+.p-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.p-grp{grid-column:1/-1;margin-top:8px}
+.p-grp:first-child{margin-top:0}
+.about-brand{margin-top:40px}
+}
 </style>
 </head>
 <body>
+<aside class="sidebar" id="sidebar" aria-label="Navigasi">
+  <div class="sb-brand"><span class="sb-logo"><img src="/logo-mark.png" alt=""></span><div><div class="sb-name">Saku Angkatan</div><div class="sb-tag">MD'26 · Transparansi Kas</div></div></div>
+  <nav class="sb-scroll">
+    <div class="sb-label">Pilih iuran</div>
+    <div id="sbKeb"></div>
+    <div class="sb-label">Akses</div>
+    <a class="sb-item" href="/saku"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5M15 12H3"/></svg><span>Halaman utama (login)</span></a>
+  </nav>
+  <div class="sb-note"><strong>Mode lihat saja</strong>Halaman ini hanya menampilkan status iuran. Untuk mencatat dan mengelola kas, masuk ke halaman utama dengan akunmu.<a class="sb-cta" href="/saku">Masuk ke halaman utama</a></div>
+</aside>
 <header class="app-header">
   <div class="header-top">
     <div class="brand-stamp" aria-hidden="true"><img src="/logo-mark.png" alt=""></div>
@@ -747,7 +833,9 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
       <div class="header-title">Transparansi Kas</div>
       <div class="header-sub">Saku Angkatan MD'26</div>
     </div>
-    <button type="button" class="hdr-btn" onclick="toggleTheme()" aria-label="Ganti tema terang/gelap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    <a class="hdr-btn hdr-main" href="/saku" aria-label="Halaman utama (perlu login)" title="Halaman utama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5M15 12H3"/></svg></a>
+    <a class="hdr-act" href="/saku"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5M15 12H3"/></svg>Halaman utama</a>
+    <button type="button" class="hdr-btn hdr-theme" onclick="toggleTheme()" aria-label="Ganti tema terang/gelap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
   <div class="header-meta">
     <div class="connection-indicator" id="connectionIndicator" data-state="connecting"><span class="connection-dot"></span><span id="connectionText">Menghubungkan…</span></div>
@@ -757,14 +845,20 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 
 <main class="page active" id="pageMain">
   <div class="keb-chips" id="kebChips" role="tablist" aria-label="Pilih iuran"></div>
+  <div class="pub-grid">
+  <aside class="pub-side">
   <div id="summary" data-anim></div>
   <div class="kelas-tabs" id="kelasTabs"></div>
+  </aside>
+  <section class="pub-main">
   <div class="income-controls">
     <div class="search-box"><input type="text" id="q" placeholder="Cari nama mahasiswa…" autocomplete="off" oninput="Q=this.value;render()"></div>
     <div class="status-filters" id="stFilters"></div>
   </div>
   <div class="filter-summary" id="filterSummary"></div>
   <div id="list" class="p-list" data-anim><div class="empty"><span class="spin-lg"></span>Memuat data…</div></div>
+  </section>
+  </div>
   <div class="about-brand" aria-hidden="true"><span class="about-logo"></span></div>
 </main>
 
@@ -916,13 +1010,14 @@ function render() {
   if (!D) return;
   const keb = D.kebutuhan;
   if (!keb.length) {
-    setHtml('kebChips', ''); setHtml('summary', ''); setHtml('kelasTabs', ''); setHtml('stFilters', ''); setText('filterSummary', '');
+    setHtml('kebChips', ''); setHtml('sbKeb', ''); setHtml('summary', ''); setHtml('kelasTabs', ''); setHtml('stFilters', ''); setText('filterSummary', '');
     return setHtml('list', empty('Belum ada iuran yang dibuka.'));
   }
   if (!selKeb || !getKeb(selKeb)) selKeb = (keb.find(k => k.status !== 'ARSIP') || keb[0]).id;
   const k = getKeb(selKeb), st = statKeb(k), sv = kebStatus(k, st.all), prevList = $('list')._h;
   const ordered = [...keb].sort((a, b) => (a.status === 'ARSIP') - (b.status === 'ARSIP'));
   setHtml('kebChips', ordered.map(x => `<button type="button" role="tab" aria-selected="${x.id === selKeb}" class="keb-chip ${x.id === selKeb ? 'active' : ''} ${x.status === 'ARSIP' ? 'arsip' : ''}" onclick="pilihKeb('${esc(x.id)}')">${esc(x.judul)}</button>`).join(''));
+  setHtml('sbKeb', ordered.map(x => `<button type="button" class="sb-item ${x.id === selKeb ? 'active' : ''} ${x.status === 'ARSIP' ? 'arsip' : ''}" onclick="pilihKeb('${esc(x.id)}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg><span>${esc(x.judul)}</span></button>`).join(''));
   const C = 2 * Math.PI * 19;
   if (setHtml('summary', `<div class="pub-hero">
     <div class="ring"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="19"/><circle class="val" cx="22" cy="22" r="19" stroke-dasharray="${(C * st.all.pct / 100).toFixed(2)} ${C.toFixed(2)}"/></svg><b>${st.all.pct}%</b></div>

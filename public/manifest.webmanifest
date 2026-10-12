@@ -2,7 +2,7 @@
   "name": "Saku Angkatan MD'26",
   "short_name": "SAKU MD26",
   "description": "Aplikasi kas angkatan Manajemen Dakwah 2026",
-  "start_url": "/",
+  "start_url": "/saku",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ad010c",
