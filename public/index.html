@@ -995,6 +995,129 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 .ex-count{margin-top:4px;padding:11px 14px;border-radius:14px;background:var(--brand-soft);color:var(--brand-ink);font-size:12px;font-weight:700;line-height:1.45}
 .ex-count.bad{background:var(--warn-soft);color:var(--warn)}
 @media(max-width:380px){.ex-fmt{grid-template-columns:1fr}}
+
+/* =====================================================================
+   TAMPILAN DESKTOP (>= 1024px): sidebar + header + konten per section
+   Di bawah 1024px tampilan mobile/tablet tidak berubah.
+   ===================================================================== */
+.sidebar,.header-desc,.hdr-act,.qa-title{display:none}
+@media(min-width:1024px){
+:root{--sbw:272px}
+#appPage{padding-left:var(--sbw)}
+.bottom-nav{display:none!important}
+
+/* ---------- Sidebar ---------- */
+.sidebar{position:fixed;z-index:70;left:0;top:0;bottom:0;width:var(--sbw);display:flex;flex-direction:column;padding:22px 14px 14px;color:#fff;background:linear-gradient(190deg,#a60e27 0%,#800a1d 52%,#4f0615 100%);box-shadow:8px 0 30px -12px rgba(60,6,16,.45);overflow:hidden}
+[data-theme="dark"] .sidebar{background:linear-gradient(190deg,#4d0714 0%,#33040d 55%,#1f0207 100%);box-shadow:8px 0 30px -12px rgba(0,0,0,.7)}
+.sidebar::before{content:'';position:absolute;width:360px;height:360px;left:-170px;top:-200px;border-radius:50%;border:1px solid rgba(255,255,255,.10);pointer-events:none}
+.sidebar::after{content:'';position:absolute;width:260px;height:260px;right:-150px;bottom:90px;border-radius:50%;border:1px solid rgba(255,255,255,.07);pointer-events:none}
+.sb-brand{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:2px 8px 20px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.12)}
+.sb-logo{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.sb-logo img{display:block;height:25px;width:auto}
+.sb-name{font-size:16.5px;font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.sb-tag{margin-top:2px;font-size:11px;font-weight:600;opacity:.7}
+.sb-scroll{position:relative;z-index:1;flex:1;min-height:0;overflow-y:auto;padding-right:2px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
+.sb-label{margin:20px 12px 8px;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.sb-scroll>.sb-label:first-child{margin-top:12px}
+.sb-item{position:relative;width:100%;display:flex;align-items:center;gap:12px;margin-bottom:2px;padding:10px 12px;border:0;border-radius:12px;background:none;color:rgba(255,255,255,.82);font-size:13.5px;font-weight:700;text-align:left;cursor:pointer;transition:background-color .18s,color .18s}
+.sb-item svg{flex:none;width:18px;height:18px}
+.sb-item span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-item:hover{background:rgba(255,255,255,.10);color:#fff}
+.sb-item.active{background:rgba(255,255,255,.18);color:#fff;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.18)}
+.sb-item.active::before{content:'';position:absolute;left:-14px;top:9px;bottom:9px;width:4px;border-radius:0 4px 4px 0;background:#fff}
+.sb-item:focus-visible,.sb-out:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.sb-foot{position:relative;z-index:1;display:flex;align-items:center;gap:10px;margin-top:12px;padding:11px;border-radius:16px;background:rgba(0,0,0,.20);border:1px solid rgba(255,255,255,.10)}
+.sb-avatar{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.18);font-size:14px;font-weight:800}
+.sb-who{flex:1;min-width:0}
+.sb-user{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-role{margin-top:1px;font-size:11px;font-weight:600;opacity:.7}
+.sb-out{flex:none;width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:10px;background:rgba(255,255,255,.10);color:#fff;cursor:pointer;transition:background-color .18s}
+.sb-out:hover{background:rgba(255,255,255,.22)}
+.sb-out svg{width:17px;height:17px}
+
+/* ---------- Header (bar atas) ---------- */
+.app-header,[data-theme="dark"] .app-header{display:flex;align-items:center;gap:14px;padding:16px 40px;color:var(--ink);background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:1px solid var(--line);box-shadow:none;overflow:visible}
+.app-header.scrolled,[data-theme="dark"] .app-header.scrolled{box-shadow:0 10px 26px -16px rgba(40,8,16,.30)}
+.header-top{display:contents}
+.brand-stamp{display:none}
+.header-text{order:1;flex:1;min-width:0}
+.header-title{font-size:22px;letter-spacing:-.035em;color:var(--ink)}
+.header-sub{display:none}
+.header-desc{display:block;margin-top:2px;font-size:12.5px;font-weight:500;color:var(--ink-3)}
+.header-meta{order:2;margin:0;gap:12px;flex-wrap:nowrap}
+.connection-indicator{background:var(--surface-3);color:var(--ink-2);font-size:11px}
+.sync-note{font-size:11px;font-weight:600;color:var(--ink-3);opacity:1;white-space:nowrap}
+.hdr-act{order:3;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border:0;border-radius:12px;background:var(--brand);color:#fff;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 8px 18px -8px rgba(200,16,46,.7);transition:transform .2s,box-shadow .2s,background-color .2s}
+.hdr-act:hover{background:var(--brand-hi);transform:translateY(-1px)}
+.hdr-act svg{width:16px;height:16px}
+.hdr-btn{order:4;color:var(--ink-2);background:var(--surface-3);border-color:var(--line)}
+.hdr-btn:hover{background:var(--brand-soft);color:var(--brand-ink)}
+.header-user{order:5;max-width:240px;color:var(--ink);background:var(--surface-3);border-color:var(--line);font-size:12.5px}
+
+/* ---------- Konten ---------- */
+.page{max-width:1280px;padding:30px 40px 64px}
+.page.leaving{left:var(--sbw);right:0}
+.sub.sub-leaving{left:40px;right:40px}
+.card{padding:24px;margin-bottom:20px}
+.card-title{font-size:17px}
+.card-subtitle{font-size:13px}
+.section-heading{margin:0 2px 16px}
+.section-heading h2{font-size:16px;letter-spacing:-.02em}
+.section-heading h2::before{display:block;width:4px;height:17px}
+.section-heading>span{background:var(--brand-soft);color:var(--brand-ink);border-radius:99px;padding:3px 11px}
+
+/* Beranda */
+.greet{padding:0 2px 24px}
+.greet-hi{font-size:28px}
+.greet-msg{font-size:13.5px;max-width:760px}
+.dash-top{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(320px,1fr);gap:22px;margin-bottom:26px;align-items:stretch}
+.dash-top .dashboard-hero{margin:0;min-height:250px;padding:30px 34px 26px;border-radius:24px}
+.dash-top .hero-balance{font-size:48px}
+.dash-top .hero-split{margin-top:24px;padding-top:18px}
+.dash-top .quick-actions{margin:0;padding:22px;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-content:start;border:1px solid var(--line);border-radius:24px;background:var(--surface);box-shadow:var(--sh-1)}
+body.role-bendahara .dash-top .quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+.qa-title{display:block;grid-column:1/-1;margin-bottom:2px;font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.dash-top .quick-action{flex-direction:row;justify-content:flex-start;gap:12px;padding:14px;text-align:left;font-size:13px;background:var(--surface-2);border-radius:16px;cursor:pointer}
+.dash-top .quick-action:hover{border-color:var(--brand);background:var(--brand-soft)}
+.dash-cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:start}
+.dsec{padding:22px;border:1px solid var(--line);border-radius:24px;background:var(--surface);box-shadow:var(--sh-1)}
+.dsec .keb-card{background:var(--surface-2);box-shadow:none}
+.dsec .keb-card:hover{background:var(--surface)}
+
+/* Iuran */
+#kebList{grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px}
+.back-link{margin-bottom:14px}
+.detail-card{padding:26px}
+.detail-grid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:34px;align-items:start}
+.detail-side{position:sticky;top:calc(var(--hh,76px) + 22px);padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--surface-2)}
+.detail-main{min-width:0}
+#mhsList{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.income-controls{top:calc(var(--hh,76px) + 8px)}
+
+/* Pengeluaran & Pengaturan: dua kolom */
+.split{display:grid;grid-template-columns:360px minmax(0,1fr);gap:22px;align-items:start}
+.split>.card{margin:0}
+.split-out .funds-overview{margin:0;position:sticky;top:calc(var(--hh,76px) + 22px);padding:24px}
+.split-set .settings-profile{margin:0;position:sticky;top:calc(var(--hh,76px) + 22px);padding:24px;flex-direction:column;align-items:flex-start;gap:16px;border-radius:24px;min-height:180px;justify-content:flex-end}
+.split-set .settings-avatar{width:60px;height:60px;font-size:22px;border-radius:18px}
+.about-brand{margin-top:34px}
+
+/* Riwayat */
+#pageRiwayat>.card{padding:26px}
+.sticky-search{display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px;margin:0 -26px 14px;padding:14px 26px 12px}
+.sticky-search .search-box{flex:1 1 340px;margin:0!important}
+.sticky-search .status-filters{margin:0!important;flex:0 1 auto}
+#pageRiwayat>.card>.btn{display:none}   /* tombol Export di header sudah mengekspor riwayat */
+.detail-side .act-grid .btn{white-space:nowrap;padding-left:10px;padding-right:10px}
+#allTrx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#outList{display:flex;flex-direction:column;gap:10px}
+}
+
+/* layar sangat lebar: beri ruang bernapas ekstra */
+@media(min-width:1500px){
+.page{max-width:1360px}
+.dash-top .dashboard-hero{min-height:270px}
+}
 </style>
 </head>
 <body>
@@ -1017,13 +1140,36 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 
 <!-- APP -->
 <div id="appPage" style="display:none;">
+  <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+    <div class="sb-brand"><span class="sb-logo"><img src="/logo-mark.png" alt=""></span><div><div class="sb-name">Saku Angkatan</div><div class="sb-tag">MD'26 · Manajemen Dakwah</div></div></div>
+    <nav class="sb-scroll">
+      <div class="sb-label">Menu</div>
+      <button type="button" class="sb-item active" data-page="Dashboard" onclick="goTo('Dashboard')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3.8 10.3 8.2-6.5 8.2 6.5v9.2a1.5 1.5 0 0 1-1.5 1.5h-13a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M9.2 21v-6.5h5.6V21"/></svg><span>Beranda</span></button>
+      <button type="button" class="sb-item " data-page="Iuran" onclick="goTo('Iuran')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg><span>Iuran</span></button>
+      <button type="button" class="sb-item " data-page="Pengeluaran" onclick="goTo('Pengeluaran')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V8"/><path d="m17 13-5-5-5 5"/><path d="M5 3h14"/></svg><span>Pengeluaran</span></button>
+      <button type="button" class="sb-item " data-page="Riwayat" onclick="goTo('Riwayat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Riwayat</span></button>
+      <div class="sb-label">Aksi cepat</div>
+      <button type="button" class="sb-item " onclick="goTo('Iuran')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg><span>Catat pembayaran</span></button>
+      <button type="button" class="sb-item " onclick="openKeluar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span>Catat pengeluaran</span></button>
+      <button type="button" class="sb-item k-only" onclick="openKeb()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span>Iuran baru</span></button>
+      <button type="button" class="sb-item k-only" onclick="openLain()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1"/></svg><span>Dana masuk lain</span></button>
+      <div class="sb-label">Lainnya</div>
+      <button type="button" class="sb-item " onclick="openExport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Export data</span></button>
+      <button type="button" class="sb-item k-only" onclick="openMhs()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M21 20c0-2.6-1.5-4.8-3.7-5.6"/></svg><span>Kelola mahasiswa</span></button>
+      <button type="button" class="sb-item " onclick="bukaTransparansi()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Halaman transparansi</span></button>
+      <button type="button" class="sb-item " data-page="Pengaturan" onclick="goTo('Pengaturan')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3.8v2.1M12 18.1v2.1M20.2 12h-2.1M5.9 12H3.8"/></svg><span>Pengaturan</span></button>
+    </nav>
+    <div class="sb-foot"><span class="sb-avatar" id="sbAvatar">M</span><div class="sb-who"><div class="sb-user" id="sbUser">—</div><div class="sb-role" id="sbRole">—</div></div><button type="button" class="sb-out" onclick="confirmLogout()" aria-label="Keluar" title="Keluar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg></button></div>
+  </aside>
   <header class="app-header" id="appHeader">
     <div class="header-top">
       <div class="brand-stamp" aria-hidden="true"><img src="/logo-mark.png" alt=""></div>
       <div class="header-text">
         <div class="header-title" id="pageTitle">Dashboard</div>
         <div class="header-sub">Saku Angkatan MD'26</div>
+        <div class="header-desc" id="pageDesc"></div>
       </div>
+      <button type="button" class="hdr-act" onclick="exportHere()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Export</button>
       <div class="header-user" id="headerUser">—</div>
       <button type="button" class="hdr-btn" id="btnTheme" onclick="toggleTheme()" aria-label="Ganti tema terang/gelap" title="Ganti tema"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
     </div>
@@ -1040,6 +1186,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
       <h1 class="greet-hi"><span class="g-time" id="gTime">Selamat datang,</span> <span class="g-name" id="gName">—</span></h1>
       <p class="greet-msg" id="greetMsg" onclick="rotateGreet(true)" title="Ketuk untuk pesan lain">Menyiapkan sapaan…</p>
     </section>
+    <div class="dash-top">
     <section class="dashboard-hero">
       <div class="hero-eyebrow" id="heroGreeting">Saku angkatan</div>
       <div class="hero-title">Total saldo</div>
@@ -1050,15 +1197,23 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
       </div>
     </section>
     <section class="quick-actions" aria-label="Aksi cepat">
+      <div class="qa-title">Aksi cepat</div>
       <button type="button" class="quick-action" onclick="goTo('Iuran')"><span class="quick-action-icon in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span><span>Catat bayar</span></button>
       <button type="button" class="quick-action" onclick="openKeluar()"><span class="quick-action-icon out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><span>Pengeluaran</span></button>
       <button type="button" class="quick-action k-only" onclick="openKeb()"><span class="quick-action-icon export"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span><span>Iuran baru</span></button>
       <button type="button" class="quick-action k-only" onclick="openLain()"><span class="quick-action-icon move"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 14h.01"/></svg></span><span>Dana masuk</span></button>
     </section>
+    </div>
+    <div class="dash-cols">
+    <section class="dsec dsec-keb">
     <div class="section-heading"><h2>Iuran aktif</h2><span id="kebCount">0</span></div>
     <div id="dashKeb" class="keb-list" data-anim><div class="empty">Memuat data…</div></div>
+    </section>
+    <section class="dsec dsec-trx">
     <div class="section-heading"><h2>Transaksi terbaru</h2><button type="button" class="see-all" onclick="goTo('Riwayat')">Lihat semua ›</button></div>
     <div id="recentTrx" class="transaction-list" data-anim><div class="empty">Memuat data…</div></div>
+    </section>
+    </div>
   </div>
 
   <!-- IURAN -->
@@ -1072,7 +1227,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
     </div>
     <div id="iuranDetail" class="sub" style="display:none;">
       <button class="back-link" onclick="backFromDetail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg><span id="backLbl">Semua kebutuhan</span></button>
-      <div class="card">
+      <div class="card detail-card"><div class="detail-grid"><aside class="detail-side">
         <div class="card-title" id="dTitle">—</div>
         <div class="pill-row detail-pills" id="dPills"></div>
         <div class="progress-wrap"><div class="bar"><span id="dBar" class="warn" style="width:0%"></span></div></div>
@@ -1083,6 +1238,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
           <button class="btn btn-secondary k-only" onclick="openKeb(activeKeb)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Edit</button>
           <button class="btn btn-destructive k-only" id="btnArsip" onclick="toggleArsip()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4"/></svg><span id="arsipLbl">Arsipkan</span></button>
         </div>
+        </aside><div class="detail-main">
         <div class="kelas-tabs" id="kelasTabs"></div>
         <div class="income-controls">
           <div class="search-box"><input type="text" id="searchMhs" placeholder="Cari nama / NIM..." oninput="renderDetail()"></div>
@@ -1094,18 +1250,21 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
         </div>
         <div class="filter-summary" id="filterSummary"></div>
         <div id="mhsList" class="mhs-list" data-anim></div>
+        </div></div>
       </div>
     </div>
   </div>
 
   <!-- PENGELUARAN -->
   <div id="pagePengeluaran" class="page">
+    <div class="split split-out">
     <section class="funds-overview">
       <div class="monthly-overview-kicker">Dana siap digunakan</div><div class="funds-overview-title">Saldo per metode</div>
       <div class="funds-balance-grid"><div><span>CASH</span><strong id="outBalanceCash">Rp 0</strong></div><div><span>TRANSFER/QRIS</span><strong id="outBalanceTransfer">Rp 0</strong></div></div>
       <div class="fund-actions"><button class="btn btn-primary" onclick="openKeluar()">Catat pengeluaran</button><button class="btn btn-secondary k-only" onclick="openPindah()">Pindah dana</button></div>
     </section>
     <div class="card"><div class="card-title" style="margin-bottom:12px">Riwayat Pengeluaran</div><div id="outList" class="transaction-list" data-anim></div></div>
+    </div>
   </div>
 
   <!-- RIWAYAT -->
@@ -1129,6 +1288,7 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 
   <!-- PENGATURAN -->
   <div id="pagePengaturan" class="page">
+    <div class="split split-set">
     <section class="settings-profile">
       <div class="settings-avatar" id="settingsAvatar">M</div>
       <div><div class="settings-kicker">Sesi aktif</div><div class="settings-name" id="settingsUser">—</div><div class="settings-copy" id="settingsRole">—</div></div>
@@ -1139,10 +1299,11 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
         <button class="set-row k-only" onclick="openMhs()"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5a3 3 0 0 1 0 6M18.5 14.8c1.7.7 2.5 2.2 2.5 4.2"/></svg></span><span>Kelola mahasiswa<small>Tambah / hapus data per kelas</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
         <button class="set-row" onclick="openExport()"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></span><span>Export data<small>PDF atau teks untuk disalin</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
         <button class="set-row" onclick="toggleTheme()"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span><span>Tampilan<small id="themeLbl">Mode terang aktif — ketuk untuk gelap</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-        <button class="set-row" onclick="salinLinkPublik()"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.1 0l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg></span><span>Link transparansi<small>Salin link halaman untuk mahasiswa</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button class="set-row" onclick="bukaTransparansi()"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span>Halaman transparansi<small>Buka laporan kas yang bisa dilihat semua orang</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
         <button class="set-row danger" onclick="confirmLogout()"><span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg></span><span>Keluar<small>Akhiri sesi di perangkat ini</small></span></button>
       </div>
       <div class="card-subtitle" id="roleHint"></div>
+    </div>
     </div>
     <div class="about-brand" aria-hidden="true"><span class="about-logo"></span></div>
   </div>
@@ -1175,6 +1336,7 @@ const mLbl = m => MLBL[m] || m || '';
 const M = { bayar:'CASH', keluar:'CASH', lain:'CASH', bulk:'CASH', from:'CASH', to:'TRANSFER' };
 const PAGES = ['Dashboard','Iuran','Pengeluaran','Riwayat','Pengaturan'];
 const TITLES = { Dashboard:'Dashboard', Iuran:'Iuran', Pengeluaran:'Pengeluaran', Riwayat:'Riwayat', Pengaturan:'Pengaturan' };
+const DESC = { Dashboard:'Ringkasan kas angkatan hari ini', Iuran:'Pantau iuran dan siapa yang belum membayar', Pengeluaran:'Catat dan lihat pemakaian dana angkatan', Riwayat:'Semua pemasukan, pengeluaran, dan perpindahan dana', Pengaturan:'Akun, export data, dan tampilan' };
 
 /****** UTIL ******/
 const $ = id => document.getElementById(id);
@@ -1196,7 +1358,7 @@ function countTo(id, val, dur) {
 }
 const COUNT_IDS = ['heroSaldo', 'balanceCash', 'balanceTransfer', 'outBalanceCash', 'outBalanceTransfer'];
 function resetCounts() { COUNT_IDS.forEach(i => { const e = $(i); if (e) { e._v = 0; cancelAnimationFrame(e._raf); } }); }
-function swapTitle(t) { const e = $('pageTitle'); if (!e || e.textContent === t) return; e.classList.remove('t-swap'); void e.offsetWidth; e.textContent = t; e.classList.add('t-swap'); }
+function swapTitle(t) { setText('pageDesc', DESC[t] || ''); const e = $('pageTitle'); if (!e || e.textContent === t) return; e.classList.remove('t-swap'); void e.offsetWidth; e.textContent = t; e.classList.add('t-swap'); }
 /* Transisi antar-halaman: halaman lama keluar sambil halaman baru masuk (tab = geser+pudar, push/pop = ala UINavigationController) */
 function swapEls(out, inn, mode, kind, sy) {
   const sub = kind === 'sub', hh = sub ? 0 : $('appHeader').offsetHeight;
@@ -1466,7 +1628,7 @@ function initApp() {
   const ap = $('appPage'); ap.style.display = 'block'; ap.classList.remove('app-enter'); void ap.offsetWidth; ap.classList.add('app-enter'); setTimeout(() => ap.classList.remove('app-enter'), 1000);
   window.scrollTo(0, 0); resetCounts();
   document.body.classList.toggle('role-bendahara', !isKetua());
-  setText('headerUser', user.nama); setText('settingsUser', user.nama); setText('settingsAvatar', ini(user.nama)); syncTheme();
+  setText('headerUser', user.nama); setText('sbUser', user.nama); setText('sbAvatar', ini(user.nama)); setText('sbRole', isKetua() ? 'Ketua Angkatan' : 'Bendahara'); setText('pageDesc', DESC[activePage] || ''); setText('settingsUser', user.nama); setText('settingsAvatar', ini(user.nama)); syncTheme();
   setText('settingsRole', isKetua() ? 'Ketua Angkatan • akses penuh' : 'Bendahara • input pembayaran & pengeluaran');
   setText('roleHint', isKetua() ? 'Kamu bisa membuat iuran, mengelola mahasiswa, mencatat dana masuk/keluar, memindahkan dana, serta mengoreksi atau membatalkan transaksi.' : 'Kamu bisa mencatat pembayaran dan pengeluaran. Perubahan lain hanya bisa dilakukan Ketua Angkatan.');
   greetReady = false; paintGreet(false);
@@ -1495,6 +1657,7 @@ function goTo(p, keep, mode) {
   activePage = p;
   document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
   const b = document.querySelector(`.nav-item[data-page="${p}"]`); b.classList.add('active'); moveNav(b);
+  document.querySelectorAll('.sb-item[data-page]').forEach(x => x.classList.toggle('active', x.dataset.page === p));
   swapTitle(TITLES[p]);
   if (p === 'Iuran' && !keep) closeDetail(true);
   if (p !== 'Iuran') detailFrom = null;
@@ -1846,16 +2009,6 @@ function bukaTransparansi() {
   }).withFailureHandler(e => actEnd(false, 'Tidak dapat membuka halaman. ' + (e && e.message ? e.message : ''))).getUrlPublik();
 }
 
-/****** LINK TRANSPARANSI ******/
-function salinLinkPublik() {
-  actStart('Menyiapkan link…');
-  google.script.run.withSuccessHandler(url => {
-    const ok = () => actEnd(true, 'Link halaman transparansi disalin');
-    if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, () => actEnd(true, 'Salin manual: ' + url)); else actEnd(true, 'Salin manual: ' + url);
-  }).withFailureHandler(e => actEnd(false, 'Tidak dapat mengambil link. ' + (e && e.message ? e.message : ''))).getUrlPublik();
-}
-
-
 /****** SAPAAN & PESAN KEUANGAN ******/
 let greetReady = false, greetLast = '', greetTimer = null;
 const SLOT = {
@@ -1872,7 +2025,7 @@ const G_ALL = [
   'Transparansi bikin semua orang tenang. Kapan terakhir kali kamu memeriksa pengeluaran terbaru?',
   'Saldo yang rapi selalu dimulai dari pencatatan yang tertib. Ada transaksi yang masih tertinggal di chat?',
   'Iuran kecil yang rutin lebih kuat daripada setoran besar yang tertunda. Sudah mengingatkan teman yang belum bayar?',
-  'Dana yang dikelola jujur akan dipercaya lebih lama. Sudah membagikan link transparansi pekan ini?',
+  'Dana yang dikelola jujur akan dipercaya lebih lama. Sudah membagikan halaman transparansi pekan ini?',
   'Uang cash yang dipegang gampang terlupa. Sudah dicatat atau dipindahkan semuanya?',
   'Angka yang akurat adalah hadiah terbaik untuk angkatan. Mau memeriksa ulang satu transaksi hari ini?',
   'Ketika ada yang bertanya ke mana uangnya pergi, kamu bisa menjawab dalam sekali ketuk. Sudah siap?',
@@ -2376,6 +2529,7 @@ function exSet(k, v) { EX[k] = v; exPaint(); if (k === 'fmt' && v === 'pdf') { l
 function exSecTog(k) { EX.sec[k] = !EX.sec[k]; exPaint(); }
 function exTog(k) { EX[k] = !EX[k]; exPaint(); }
 function exKls(c) { if (EX.kelas.has(c)) { if (EX.kelas.size > 1) EX.kelas.delete(c); } else EX.kelas.add(c); exPaint(); }
+function exportHere() { openExport(activePage === 'Riwayat' ? 'riwayat' : (activePage === 'Iuran' && activeKeb && $('iuranDetail').style.display !== 'none') ? 'iuran' : undefined); }
 function openExport(preset) {
   if (!D) return toast('Data belum dimuat, coba sebentar lagi', 'error');
   Object.assign(EX, { keb:'all', status:'semua', group:true, rwType:'semua', rwMetode:'semua', from:'', to:'', q:'', busy:false });
