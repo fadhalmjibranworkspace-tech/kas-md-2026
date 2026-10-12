@@ -136,3 +136,14 @@ i.k-C{background:var(--kC-soft)!important;color:var(--kC-ink)!important}
 .rs-sum{margin:10px 2px 0;font-size:13px;font-weight:800;color:var(--brand-ink)}
 
 [data-theme=dark]{--c-academic:#2dd4bf;--c-academic-s:rgba(45,212,191,.16);--c-document:#fbbf24;--c-document-s:rgba(251,191,36,.16);--c-ai:#a78bfa;--c-ai-s:rgba(167,139,250,.18)}
+
+/* ---- Logo kategori ---- */
+.rowc .ic.lg{padding:0;overflow:hidden;background:none;box-shadow:0 4px 12px rgba(60,10,20,.18)}
+.rowc .ic.lg img{width:100%;height:100%;object-fit:cover}
+.brand-stamp img{width:24px;height:24px;object-fit:contain}
+.hero.cat{min-height:132px;margin-bottom:4px}
+.hero.cat::after{display:none}
+.hero.cat p{max-width:28ch}
+.hero .hico{position:relative;z-index:1;flex:none;width:72px;height:72px;display:grid;place-items:center;border-radius:21px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28)}
+.hero .hico svg{width:34px;height:34px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hero.cat .go{min-height:30px;padding:4px 12px;font-size:12px}

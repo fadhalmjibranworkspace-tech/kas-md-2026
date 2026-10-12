@@ -1,0 +1,16 @@
+{
+  "name": "Portal MD 2026",
+  "short_name": "Portal MD",
+  "description": "Portal angkatan Manajemen Dakwah 2026: kas, alat kuliah, dan asisten AI",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#a5010b",
+  "theme_color": "#8a0b20",
+  "lang": "id",
+  "icons": [
+    { "src": "/brand/portal-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/portal-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/portal-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
