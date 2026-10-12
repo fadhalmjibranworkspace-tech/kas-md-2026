@@ -450,6 +450,20 @@ function getDataPublik() {
     return out;
   } catch (e) { return { error: 'Data belum tersedia' }; }
 }
+// Daftar nama + kelas saja, untuk alat bantu (Group Maker, Random Picker). Tanpa NIM dan tanpa data bayar.
+function getRosterPublik() {
+  try {
+    const versi = versi_();
+    const cache = CacheService.getScriptCache(), key = 'ros_' + versi;
+    const hit = cache.get(key);
+    if (hit) return JSON.parse(hit);
+    const mahasiswa = rows_(SH.MHS).filter(m => str_(m.NIM) && str_(m.Nama))
+      .map(m => ({ n: str_(m.Nama), k: str_(m.Kelas).toUpperCase() }));
+    const out = { versi: versi, kelas: KELAS, mahasiswa: mahasiswa };
+    try { cache.put(key, JSON.stringify(out), 600); } catch (e) {}
+    return out;
+  } catch (e) { return { error: 'Data belum tersedia' }; }
+}
 function getUrlPublik() { return ScriptApp.getService().getUrl() + '?p=publik'; }
 
 /****** SINKRON UNTUK EDIT MANUAL DI SPREADSHEET ******/
@@ -472,7 +486,7 @@ const RPC = {
   catatPembayaran, catatPelunasanBulk, catatDanaMasukLain,
   catatPengeluaran, pindahDana,
   koreksiTransaksi, batalkanTransaksi,
-  getVersi, getAppData, getVersiPublik, getDataPublik
+  getVersi, getAppData, getVersiPublik, getDataPublik, getRosterPublik
 };
 function doPost(e) {
   let out;

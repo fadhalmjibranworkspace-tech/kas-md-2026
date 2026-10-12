@@ -7,7 +7,7 @@ const ALLOW = new Set([
   'catatPembayaran', 'catatPelunasanBulk', 'catatDanaMasukLain',
   'catatPengeluaran', 'pindahDana',
   'koreksiTransaksi', 'batalkanTransaksi',
-  'getVersi', 'getAppData', 'getVersiPublik', 'getDataPublik'
+  'getVersi', 'getAppData', 'getVersiPublik', 'getDataPublik', 'getRosterPublik'
 ]);
 
 module.exports = async function handler(req, res) {

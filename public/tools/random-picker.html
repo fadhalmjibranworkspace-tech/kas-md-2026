@@ -1,21 +1,25 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#8a0b20"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/hub.css"><script src="/hub.js"></script><title>Random Name Picker · MD 2026</title>
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#8a0b20"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/hub.css"><script src="/hub.js"></script><script src="/roster.js"></script><title>Random Name Picker · MD 2026</title>
 <style>#box{display:grid;place-items:center;min-height:150px;padding:20px;border-radius:24px;background:linear-gradient(145deg,#e11d3f,#8a0b20);color:#fff;font-size:clamp(26px,7vw,44px);font-weight:800;letter-spacing:-.03em;text-align:center;word-break:break-word;box-shadow:0 18px 40px -16px rgba(173,1,12,.7)}#box.pop{animation:pp .5s cubic-bezier(.34,1.56,.64,1)}@keyframes pp{from{transform:scale(.9)}to{transform:none}}#his{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}#his span{padding:5px 12px;border-radius:99px;background:var(--surface-3);font-weight:700;font-size:13px}</style></head><body>
 <div id="top" data-back="/academic" data-title="Random Name Picker"></div>
-<main class="wrap"><h1>Random Name Picker</h1><p class="sub">Pilih satu nama secara acak.</p>
+<main class="wrap"><h1>Random Name Picker</h1><p class="sub">Centang mahasiswa yang ikut, lalu acak satu nama.</p>
 <div class="panel"><div id="box">Siap memilih?</div>
 <div class="row"><button class="btn" id="go">Pilih acak</button><button class="btn ghost" id="rs">Reset riwayat</button></div>
 <label class="chk" style="margin-top:14px"><input type="checkbox" id="rm" checked> Nama yang sudah terpilih tidak dipilih lagi</label>
 <div id="his"></div></div>
-<div class="panel"><label class="lbl" for="names">Daftar nama <span id="cnt"></span></label><textarea class="in" id="names" placeholder="Satu nama per baris"></textarea></div></main>
+<div class="panel"><div class="seg" id="src"><button type="button" data-s="r" class="on">Data mahasiswa</button><button type="button" data-s="m">Input manual</button></div>
+<div id="rost"></div>
+<div id="man" hidden><label class="lbl" for="names">Daftar nama <span id="cnt"></span></label><textarea class="in" id="names" placeholder="Satu nama per baris"></textarea></div></div></main>
 <script>
 var $=function(s){return document.querySelector(s)},done=[],busy=0;
 function rnd(n){var a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]/4294967296*n|0}
-function list(){var s={};return $('#names').value.split(/\r?\n/).map(function(x){return x.trim()}).filter(function(x){return x&&!s[x.toLowerCase()]&&(s[x.toLowerCase()]=1)})}
+var SRC='r',R=Roster.mount($('#rost'),{});
+document.querySelectorAll('#src button').forEach(function(b){b.onclick=function(){SRC=b.dataset.s;document.querySelectorAll('#src button').forEach(function(x){x.classList.toggle('on',x===b)});$('#rost').hidden=SRC!=='r';$('#man').hidden=SRC!=='m'}});
+function list(){if(SRC==='r')return R.selected().map(function(p){return p.n});var s={};return $('#names').value.split(/\r?\n/).map(function(x){return x.trim()}).filter(function(x){return x&&!s[x.toLowerCase()]&&(s[x.toLowerCase()]=1)})}
 $('#names').oninput=function(){var n=list().length;$('#cnt').textContent=n?'('+n+')':''};
 $('#rs').onclick=function(){done=[];$('#his').innerHTML='';$('#box').textContent='Siap memilih?'};
 $('#go').onclick=function(){
   if(busy)return;var all=list(),pool=all.filter(function(n){return!$('#rm').checked||done.indexOf(n)<0});
-  if(!all.length){alert('Isi daftar nama dulu.');return}
+  if(!all.length){alert(SRC==='r'?'Centang minimal 1 mahasiswa dulu.':'Isi daftar nama dulu.');return}
   if(!pool.length){$('#box').textContent='Semua nama sudah terpilih';return}
   busy=1;var win=pool[rnd(pool.length)],d=40,t=0,b=$('#box');b.classList.remove('pop');
   (function step(){b.textContent=pool[rnd(pool.length)];t+=d;if(t<1500){d*=1.13;setTimeout(step,d)}else{b.textContent=win;b.classList.add('pop');done.push(win);$('#his').innerHTML=done.map(function(n){return '<span>'+n.replace(/</g,'&lt;')+'</span>'}).join('');busy=0}})()};
