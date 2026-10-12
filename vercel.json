@@ -1,4 +1,9 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/academic", "destination": "/menu.html" },
+    { "source": "/document", "destination": "/menu.html" },
+    { "source": "/ai", "destination": "/menu.html" }
+  ],
   "functions": { "api/rpc.js": { "maxDuration": 30 } }
 }
