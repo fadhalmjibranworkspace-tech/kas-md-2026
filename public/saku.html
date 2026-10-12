@@ -1088,7 +1088,7 @@ body.role-bendahara .dash-top .quick-actions{grid-template-columns:repeat(2,minm
 #kebList{grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px}
 .back-link{margin-bottom:14px}
 .detail-card{padding:26px}
-.detail-grid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:34px;align-items:start}
+.detail-layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:34px;align-items:start}
 .detail-side{position:sticky;top:calc(var(--hh,76px) + 22px);padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--surface-2)}
 .detail-main{min-width:0}
 #mhsList{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -1229,7 +1229,7 @@ body.role-bendahara .dash-top .quick-actions{grid-template-columns:repeat(2,minm
     </div>
     <div id="iuranDetail" class="sub" style="display:none;">
       <button class="back-link" onclick="backFromDetail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg><span id="backLbl">Semua kebutuhan</span></button>
-      <div class="card detail-card"><div class="detail-grid"><aside class="detail-side">
+      <div class="card detail-card"><div class="detail-layout"><aside class="detail-side">
         <div class="card-title" id="dTitle">—</div>
         <div class="pill-row detail-pills" id="dPills"></div>
         <div class="progress-wrap"><div class="bar"><span id="dBar" class="warn" style="width:0%"></span></div></div>
