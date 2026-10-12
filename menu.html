@@ -1,9 +1,0 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#8a0b20"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/hub.css"><script src="/hub.js"></script><title>MD 2026</title></head><body>
-<div id="top" data-back="/" data-title="Menu utama"></div>
-<main class="wrap"><h1 id="h"></h1><p class="sub" id="s"></p><div class="grid" id="g"></div></main>
-<script>
-var k=location.pathname.replace(/\W/g,''),H=HUB[k];if(!H)location.replace('/');
-else{document.title=H.name+' · MD 2026';h.textContent=H.name;s.textContent=H.sub;
-document.querySelector('.wrap').style.cssText='--ac:'+H.ac+';--acs:'+H.acs;
-g.innerHTML=H.tools.map(function(t){return '<a class="tile'+(t.h?'':' soon')+'" '+(t.h?'href="'+t.h+'"':'')+' style="--ac:'+H.ac+';--acs:'+H.acs+'">'+(t.h?'':'<span class="badge">Segera</span>')+'<span class="ic">'+svg(t.i)+'</span><div><b>'+t.n+'</b><p>'+t.d+'</p></div></a>'}).join('')}
-</script></body></html>
