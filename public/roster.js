@@ -28,12 +28,12 @@
     function emit() { opt.onChange && opt.onChange(selected()); }
     function paint() {
       var v = visible(), n = Object.keys(sel).length;
-      el.querySelector('.rs-chips').innerHTML = [['*', 'Semua']].concat(kls.map(function (k) { return [k, 'Kelas ' + k]; })).map(function (x) {
+      el.querySelector('.rs-chips').innerHTML = [['*', 'Semua']].concat(kls.map(function (k) { return [k, k]; })).map(function (x) {
         var tot = all.filter(function (m) { return x[0] === '*' || m.k === x[0]; }), on = tot.filter(function (m) { return sel[m.id]; }).length;
-        return '<button type="button" data-k="' + x[0] + '"' + (kelas === x[0] ? ' class="on"' : '') + '>' + x[1] + ' · ' + on + '/' + tot.length + '</button>';
+        return '<button type="button" data-k="' + x[0] + '"' + (kelas === x[0] ? ' class="on"' : '') + '>' + x[1] + ' ' + on + '/' + tot.length + '</button>';
       }).join('');
       el.querySelector('.rs-list').innerHTML = v.length ? v.map(function (m) {
-        return '<label><input type="checkbox" data-id="' + m.id + '"' + (sel[m.id] ? ' checked' : '') + '><span class="nm">' + esc(m.n) + '</span><i>' + esc(m.k || '-') + '</i></label>';
+        return '<label><input type="checkbox" data-id="' + m.id + '"' + (sel[m.id] ? ' checked' : '') + '><span class="nm">' + esc(m.n) + '</span><i class="' + (/^[ABC]$/.test(m.k) ? 'k-' + m.k : '') + '">' + esc(m.k || '-') + '</i></label>';
       }).join('') : '<div class="rs-msg">Tidak ada nama yang cocok.</div>';
       el.querySelector('.rs-sum').textContent = n + ' dari ' + all.length + ' mahasiswa dipilih';
     }
