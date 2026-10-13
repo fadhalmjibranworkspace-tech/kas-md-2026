@@ -6,7 +6,7 @@ var k=location.pathname.replace(/\.html$/,'').replace(/\W/g,''),H=HUB[k];
 if(!H)location.replace('/');
 else{document.title=H.name+' · MD 2026';var T=document.getElementById('top');T.dataset.title=H.name;T.dataset.sub=H.sub;
 var st='--ac:'+H.ac+';--acs:'+H.acs,R=H.tools.filter(function(t){return t.h}),S=H.tools.filter(function(t){return!t.h}),o='';
-o+='<div class="hero cat" style="background:'+H.hero+'">'+(H.logo?'<img src="'+H.logo+'" alt="">':'<span class="hico">'+svg(H.ico)+'</span>')+'<div><b>'+H.name+'</b><p>'+H.lead+'</p><span class="go">'+(R.length?R.length+' alat siap dipakai':'Segera hadir')+'</span></div></div>';
+o+='<div class="hero cat">'+(H.logo?'<img src="'+H.logo+'" alt="">':'<span class="hico">'+svg(H.ico)+'</span>')+'<div><b>'+H.name+'</b><p>'+H.lead+'</p><span class="go">'+(R.length?R.length+' alat siap dipakai':'Segera hadir')+'</span></div></div>';
 if(R.length)o+='<div class="section-heading" style="'+st+'"><h2>Siap dipakai</h2><span>'+R.length+'</span></div><div class="list2">'+R.map(function(t){return '<a class="rowc" href="'+t.h+'" style="'+st+'"><span class="ic">'+svg(t.i)+'</span><span class="tx"><b>'+t.n+'</b><p>'+t.d+'</p></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">'+I.chev+'</svg></a>'}).join('')+'</div>';
 if(S.length)o+='<div class="section-heading" style="'+st+'"><h2>Segera hadir</h2><span>'+S.length+'</span></div><div class="soonbox" style="'+st+'">'+S.map(function(t){return '<div>'+svg(t.i)+t.n+'</div>'}).join('')+'</div>';
 document.getElementById('pg').innerHTML=o}

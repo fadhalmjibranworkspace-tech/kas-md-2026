@@ -1,10 +1,18 @@
 <!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="theme-color" content="#8a0b20"><link rel="icon" type="image/png" sizes="32x32" href="/brand/portal-32.png"><link rel="icon" type="image/png" sizes="48x48" href="/brand/portal-48.png"><link rel="apple-touch-icon" href="/brand/portal-180.png"><link rel="manifest" href="/manifest-portal.webmanifest"><meta name="application-name" content="Portal MD 2026"><meta name="apple-mobile-web-app-title" content="Portal MD"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/hub.css"><script src="/hub.js"></script>
 <title>Portal MD 2026</title><meta name="description" content="Portal angkatan MD 2026: kas, alat kuliah, alat dokumen, dan asisten AI.">
 <meta property="og:title" content="Portal MD 2026"><meta property="og:description" content="Kas angkatan, alat kuliah, alat dokumen, dan asisten AI dalam satu tempat."><meta property="og:image" content="https://kas-md2026.vercel.app/og-portal.png"><meta name="twitter:card" content="summary_large_image">
-</head><body>
-<div id="top"></div>
-<main class="page">
-  <a class="hero" href="/saku"><img src="/icon-192.png" alt=""><div><b>SAKU MD</b><p>Kas angkatan: iuran, pemasukan, dan pengeluaran.</p><span class="go">Masuk ke Saku</span></div></a>
+</head>
+<body>
+<header class="mast" id="mast">
+  <i class="orb" aria-hidden="true"></i><i class="orb o2" aria-hidden="true"></i>
+  <div class="mast-bar"><span class="brand-stamp"><img src="/brand/portal-mark.png" alt=""></span><span class="mast-sp"></span><button class="hbtn" type="button" data-tbtn onclick="toggleTheme()"></button></div>
+  <h1 aria-label="Portal MD 2026"><span class="l1" data-split="Portal"></span><span class="l2"><span data-split="MD" data-off="6"></span> <span class="out" data-split="2026" data-off="8"></span></span></h1>
+  <p class="mast-sub">Kas, alat kuliah, dokumen, dan asisten AI untuk angkatan Manajemen Dakwah.</p>
+  <div class="ticker" aria-hidden="true"><div class="tk" id="tk"></div></div>
+</header>
+<div class="app-header minibar" id="mini" aria-hidden="true"><div class="header-top"><span class="brand-stamp"><img src="/brand/portal-mark.png" alt=""></span><div class="header-text"><div class="header-title">Portal MD 2026</div></div><button class="hbtn" type="button" data-tbtn tabindex="-1" onclick="toggleTheme()"></button></div></div>
+<main class="page home">
+  <a class="hero first" href="/saku"><img src="/icon-192.png" alt=""><div><b>SAKU MD</b><p>Kas angkatan: iuran, pemasukan, dan pengeluaran.</p><span class="go">Masuk ke Saku</span></div></a>
   <a class="rowc alt" href="/publik" style="margin-top:12px"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="tx"><b>Transparansi kas</b><p>Cek status iuran tiap kelas, tanpa login</p></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
   <div class="section-heading"><h2>Siap dipakai</h2><span id="nr"></span></div>
   <div class="qgrid" id="ready"></div>
@@ -12,10 +20,18 @@
   <div class="list2" id="cats"></div>
 </main>
 <script>
-(function(){var rd='',cs='',n=0;
-Object.keys(HUB).forEach(function(k){var H=HUB[k],r=H.tools.filter(function(t){return t.h}),st='--ac:'+H.ac+';--acs:'+H.acs;
+/* pecah teks jadi huruf yang naik satu per satu */
+(function(){document.querySelectorAll('[data-split]').forEach(function(e){var t=e.dataset.split,off=+(e.dataset.off||0),h='';for(var i=0;i<t.length;i++)h+='<span class="w" aria-hidden="true"><span class="ch" style="--i:'+(off+i)+'">'+t[i]+'</span></span>';e.innerHTML=h;e.removeAttribute('data-split')})})();
+(function(){var rd='',cs='',n=0,names=[];
+Object.keys(HUB).forEach(function(k){var H=HUB[k],r=H.tools.filter(function(t){return t.h}),st='--ac:'+H.ac+';--acs:'+H.acs;names.push(H.name);
  r.forEach(function(t){n++;rd+='<a class="qt" href="'+t.h+'" style="'+st+'"><span class="ic">'+svg(t.i)+'</span><b>'+t.n+'</b></a>'});
  cs+='<a class="rowc" href="/'+k+'" style="'+st+'">'+catIc(H)+'<span class="tx"><b>'+H.name+'</b><p>'+H.sub+'</p></span><span class="tag'+(r.length?'':' mute')+'">'+(r.length?r.length+' siap':'Segera')+'</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">'+I.chev+'</svg></a>'});
-document.getElementById('ready').innerHTML=rd;document.getElementById('cats').innerHTML=cs;document.getElementById('nr').textContent=n})();
+document.getElementById('ready').innerHTML=rd;document.getElementById('cats').innerHTML=cs;document.getElementById('nr').textContent=n;
+var items=['Saku MD'].concat(names).concat(['Kelas A','Kelas B','Kelas C']),g='<div>'+items.map(function(x){return '<span>'+x+'</span>'}).join('')+'</div>';
+document.getElementById('tk').innerHTML=g+g})();
+/* header mini muncul setelah masthead mulai terlewat */
+(function(){var m=document.getElementById('mast'),b=document.getElementById('mini'),on=false,tk=0;
+ function chk(){tk=0;var v=(window.scrollY||0)>m.offsetHeight*.45;if(v!==on){on=v;b.classList.toggle('on',on);b.setAttribute('aria-hidden',on?'false':'true');b.querySelector('button').tabIndex=on?0:-1}}
+ addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(chk)},{passive:true});chk()})();
 </script>
 </body></html>
